@@ -12,7 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
-
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,6 +22,7 @@ import java.util.Collection;
 public class EmpDAOMySqlDBImple extends EmpDAO
 {
 
+    
     @Override
     public Collection<EmpDTO> buscarUltimosEmpleados(int n)
     {

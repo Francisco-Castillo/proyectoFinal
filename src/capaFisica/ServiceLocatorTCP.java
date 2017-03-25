@@ -5,14 +5,18 @@ import app.dto.EmpDTO;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * La clase ServiceLocatorTCP , se encarga de encapsular todo el codigo que
  * implica conectarse con el servidor, enviar y recibir informacion y
  * desconectarse. Tendra tantos metodos estaticos como servicios ofrece el
- * servidor. Como en todos los casos, el server envia strings que son 
+ * servidor. Como en todos los casos, el server envia strings que son
  * representaciones de DTOs, en los metodos de ServiceLocatorTCP convertiremos
  * cada string a su correspondiente DTO para abstraer tambien de este problema
  * al cliente. Para ello se utilizara la clase utilitaria UDto.
@@ -33,7 +37,8 @@ public class ServiceLocatorTCP
      * Metodo que retorna una coleccion de departamentos. Se establece la
      * conexion con el servidor enviando el codigo de servicio que corresponda
      * en este caso 1 y luego recibimos los datos que envia el servidor.
-     * @return 
+     *
+     * @return
      */
     public static Collection<DeptDTO> obtenerDepartamentos()
     {
@@ -87,7 +92,7 @@ public class ServiceLocatorTCP
             }
         }
     }
-    
+
     public static Collection<EmpDTO> obtenerEmpleados(int deptno)
     {
         Socket s = null;
@@ -101,7 +106,7 @@ public class ServiceLocatorTCP
 
             //  solicito servicio codigo 2 (obtenerEmpleados)
             dos.writeInt(2);
-            
+
             // envio el numero de departamento
             dos.writeInt(deptno);
 
@@ -143,5 +148,5 @@ public class ServiceLocatorTCP
             }
         }
     }
-    
+
 }

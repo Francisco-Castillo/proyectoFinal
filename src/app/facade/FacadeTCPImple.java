@@ -25,4 +25,7 @@ public class FacadeTCPImple implements Facade
         return ServiceLocatorTCP.obtenerEmpleados(deptno);
     }
     
+    // Metodos para Swing
+    
+    
 }

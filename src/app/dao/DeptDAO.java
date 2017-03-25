@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -51,16 +53,18 @@ public class DeptDAO
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
-            
-        }
-        finally
-        {
+
+        } finally {
             try {
-                if(rs!=null)rs.close();
-                if(pstm!=null)pstm.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstm != null) {
+                    pstm.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
-                throw  new RuntimeException(e);
+                throw new RuntimeException(e);
             }
         }
 
