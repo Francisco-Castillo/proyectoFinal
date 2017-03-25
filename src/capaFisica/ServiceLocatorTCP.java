@@ -5,12 +5,9 @@ import app.dto.EmpDTO;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+
 
 /**
  * La clase ServiceLocatorTCP , se encarga de encapsular todo el codigo que
@@ -149,4 +146,59 @@ public class ServiceLocatorTCP
         }
     }
 
+    public static Collection<EmpDTO> obtenerTodosLosEmpleados()
+    {
+        Socket s = null;
+        DataOutputStream dos = null;
+        DataInputStream dis = null;
+        try {
+            //  me conecto
+            s = new Socket(SERVER_IP, SERVER_PORT);
+            dos = new DataOutputStream(s.getOutputStream());
+            dis = new DataInputStream(s.getInputStream());
+
+            //  solicito servicio codigo 3 (obtenerTodosLosEmpleados)
+            dos.writeInt(3);
+
+            // envio el numero de departamento
+            //dos.writeInt(deptno);
+
+            //  El server me indica cuantos departamentos va a enviar
+            int n = dis.readInt();
+
+            //Vector<DeptDTO> ret = new Vector<DeptDTO>();
+            ArrayList<EmpDTO> ret = new ArrayList<>(n);
+
+            String aux;
+
+            for (int i = 0; i < n; i++) {
+                //leo el i-esimo String
+                aux = dis.readUTF();
+                // Cada String que recibo lo convierto a DeptDTO
+                //  y lo agrego a la coleccion de retorno
+                ret.add(UDto.stringToEmpDTO(aux));
+
+            }
+            return ret;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                // cerramos los recursos
+                if (dis != null) {
+                    dis.close();
+                }
+                if (dos != null) {
+                    dos.close();
+                }
+                if (s != null) {
+                    s.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }

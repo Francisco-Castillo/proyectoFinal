@@ -39,4 +39,11 @@ public class FacadeLocalImple implements Facade
         EmpDAO empDao = (EmpDAO) UFactory.getInstancia("emp");
         return empDao.buscarXDepto(deptno);
     }
+
+    @Override
+    public Collection<EmpDTO> obtenerTodosLosEmpleados()
+    {
+        EmpDAO empDao = (EmpDAO) UFactory.getInstancia("emp");
+        return empDao.buscarTodos();
+    }
 }

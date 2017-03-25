@@ -17,5 +17,5 @@ public interface Facade
 {
     public Collection<DeptDTO> obtenerDepartamentos();
     public Collection<EmpDTO> obtenerEmpleados(int deptno);
-    
+    public Collection<EmpDTO> obtenerTodosLosEmpleados();
 }

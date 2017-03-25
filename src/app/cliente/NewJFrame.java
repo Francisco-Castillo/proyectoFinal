@@ -6,9 +6,11 @@
 package app.cliente;
 
 import app.dto.DeptDTO;
+import app.dto.EmpDTO;
 import app.facade.Facade;
 import app.factory.UFactory;
 import java.util.Collection;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -39,10 +41,10 @@ public class NewJFrame extends javax.swing.JFrame
         tabla.setModel(m);*/
         prepararTabla();
     }
-    
+
     private void prepararTabla()
     {
-         Facade facade = (Facade) UFactory.getInstancia("FACADE");
+        Facade facade = (Facade) UFactory.getInstancia("FACADE");
         Collection<DeptDTO> collDepts = facade.obtenerDepartamentos();
         String titulos[] = {"Numero", "Nombre", "Ubicacion"};
         DefaultTableModel m = new DefaultTableModel(null, titulos);
@@ -57,7 +59,6 @@ public class NewJFrame extends javax.swing.JFrame
         tabla.setModel(m);
     }
 
-  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,6 +75,9 @@ public class NewJFrame extends javax.swing.JFrame
         norte = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         sur = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        cajaValor = new javax.swing.JTextField();
+        btnVer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,16 +101,16 @@ public class NewJFrame extends javax.swing.JFrame
         centroLayout.setHorizontalGroup(
             centroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(centroLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         centroLayout.setVerticalGroup(
             centroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(centroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         getContentPane().add(centro, java.awt.BorderLayout.CENTER);
@@ -124,7 +128,7 @@ public class NewJFrame extends javax.swing.JFrame
             .addGroup(norteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(251, Short.MAX_VALUE))
+                .addContainerGap(216, Short.MAX_VALUE))
         );
         norteLayout.setVerticalGroup(
             norteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,21 +140,99 @@ public class NewJFrame extends javax.swing.JFrame
 
         getContentPane().add(norte, java.awt.BorderLayout.PAGE_START);
 
+        jLabel2.setText("Ingresar Departamento");
+
+        btnVer.setText("Ver");
+        btnVer.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnVerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout surLayout = new javax.swing.GroupLayout(sur);
         sur.setLayout(surLayout);
         surLayout.setHorizontalGroup(
             surLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 531, Short.MAX_VALUE)
+            .addGroup(surLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cajaValor, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                .addComponent(btnVer)
+                .addContainerGap())
         );
         surLayout.setVerticalGroup(
             surLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 52, Short.MAX_VALUE)
+            .addGroup(surLayout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addGroup(surLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(surLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(surLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cajaValor)
+                            .addComponent(btnVer)))
+                    .addGroup(surLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         getContentPane().add(sur, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnVerActionPerformed
+    {//GEN-HEADEREND:event_btnVerActionPerformed
+        // Aqui hago las demas Cosas
+        // recoger valor del EditText
+        if (cajaValor.getText().length() == 0) {
+            
+            Facade facade = (Facade) UFactory.getInstancia("FACADE");
+            Collection<EmpDTO> collEmps = facade.obtenerTodosLosEmpleados();
+
+            String titulos[] = {"Id", "Nombre", "Departamento", "Fecha Ingreso"};
+            DefaultTableModel m = new DefaultTableModel(null, titulos);
+            String fila[] = new String[4];
+            for (EmpDTO dto : collEmps) {
+                fila[0] = String.valueOf(dto.getEmpno());
+                fila[1] = dto.getEname();
+                fila[2] = String.valueOf(dto.getDeptno());
+
+                //Convertir Fecha
+                fila[3] = dto.getHiredate().toString();
+                m.addRow(fila);
+
+            }
+            tabla.setModel(m);
+
+        } else {
+            int deptno = Integer.parseInt(cajaValor.getText());
+            Facade facade = (Facade) UFactory.getInstancia("FACADE");
+            Collection<EmpDTO> collEmps = facade.obtenerEmpleados(deptno);
+
+            String titulos[] = {"Id", "Nombre", "Departamento", "Fecha Ingreso"};
+            DefaultTableModel m = new DefaultTableModel(null, titulos);
+            String fila[] = new String[4];
+            for (EmpDTO dto : collEmps) {
+                fila[0] = String.valueOf(dto.getEmpno());
+                fila[1] = dto.getEname();
+                fila[2] = String.valueOf(dto.getDeptno());
+
+                //Convertir Fecha
+                fila[3] = dto.getHiredate().toString();
+                m.addRow(fila);
+
+            }
+            tabla.setModel(m);
+
+        }
+
+
+    }//GEN-LAST:event_btnVerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,8 +273,11 @@ public class NewJFrame extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnVer;
+    private javax.swing.JTextField cajaValor;
     private javax.swing.JPanel centro;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel norte;
     private javax.swing.JPanel sur;

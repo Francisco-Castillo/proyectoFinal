@@ -26,6 +26,7 @@ public class ServerTCP extends Thread
 
     public static final int OBTENER_DEPARTAMENTOS = 1;
     public static final int OBTENER_EMPLEADOS = 2;
+    public static final int OBTENER_TODOS_LOS_EMPLEADOS = 3;
 
     private Socket socket = null;
     private DataInputStream dis = null;
@@ -65,6 +66,9 @@ public class ServerTCP extends Thread
                     break;
                 case OBTENER_EMPLEADOS:
                     _obtenerEmpleados(dis, dos);
+                    break;
+                case OBTENER_TODOS_LOS_EMPLEADOS:
+                    _obtenertodosLosEmpleados(dis, dos);
                     break;
             }
 
@@ -123,6 +127,33 @@ public class ServerTCP extends Thread
 
             //Obtengo la coleccion de empleados
             Collection<EmpDTO> coll = dao.buscarXDepto(deptno);
+
+            //envio el size al cliente
+            int size = coll.size();
+            dos.writeInt(size);
+
+            //envio la coleccion de departamentos
+            for (EmpDTO dto : coll) {
+                //REDEFINIR EL METODO TO STRING
+                dos.writeUTF(dto.toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+    
+    
+    private void _obtenertodosLosEmpleados(DataInputStream dis, DataOutputStream dos)
+    {
+        try {
+            EmpDAO dao = (EmpDAO) UFactory.getInstancia("emp");
+
+            //leo el depto
+            int deptno = dis.readInt();
+
+            //Obtengo la coleccion de empleados
+            Collection<EmpDTO> coll = dao.buscarTodos();
 
             //envio el size al cliente
             int size = coll.size();

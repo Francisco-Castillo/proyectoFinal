@@ -56,5 +56,40 @@ public abstract class EmpDAO
 
         }
     }
+    
+    //Esto agregue
+    
+    public Collection<EmpDTO> buscarTodos()
+    {
+        Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+
+        try {
+            con = UConnection.getConnection();
+            String sql = "SELECT empno,ename,hiredate,deptno FROM emp";
+            pstm = con.prepareStatement(sql);
+
+            rs = pstm.executeQuery();
+
+            Vector<EmpDTO> ret = new Vector<EmpDTO>();
+            EmpDTO dto = null;
+            while (rs.next()) {
+                dto = new EmpDTO();
+                dto.setEmpno(rs.getInt("empno"));
+                dto.setEname(rs.getString("ename"));
+                dto.setHiredate(rs.getDate("hiredate"));
+                dto.setDeptno(rs.getInt("deptno"));
+
+                ret.add(dto);
+
+            }
+            return ret;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+
+        }
+    }
 
 }
