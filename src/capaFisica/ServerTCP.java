@@ -68,7 +68,7 @@ public class ServerTCP extends Thread
                     _obtenerEmpleados(dis, dos);
                     break;
                 case OBTENER_TODOS_LOS_EMPLEADOS:
-                    _obtenertodosLosEmpleados(dis, dos);
+                    _obtenerTodosLosEmpleados(dis, dos);
                     break;
             }
 
@@ -144,7 +144,7 @@ public class ServerTCP extends Thread
     }
     
     
-    private void _obtenertodosLosEmpleados(DataInputStream dis, DataOutputStream dos)
+    private void _obtenerTodosLosEmpleados(DataInputStream dis, DataOutputStream dos)
     {
         try {
             EmpDAO dao = (EmpDAO) UFactory.getInstancia("emp");

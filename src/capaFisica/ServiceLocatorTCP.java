@@ -163,11 +163,11 @@ public class ServiceLocatorTCP
             // envio el numero de departamento
             //dos.writeInt(deptno);
 
-            //  El server me indica cuantos departamentos va a enviar
+            //  El server me indica cuantos empleados va a enviar
             int n = dis.readInt();
 
             //Vector<DeptDTO> ret = new Vector<DeptDTO>();
-            ArrayList<EmpDTO> ret = new ArrayList<>(n);
+            ArrayList<EmpDTO> ret = new ArrayList<>();
 
             String aux;
 
