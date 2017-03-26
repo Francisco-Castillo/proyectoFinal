@@ -2,6 +2,7 @@ package capaFisica;
 
 import app.dto.DeptDTO;
 import app.dto.EmpDTO;
+import app.dto.UserDTO;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
@@ -177,6 +178,65 @@ public class ServiceLocatorTCP
                 // Cada String que recibo lo convierto a DeptDTO
                 //  y lo agrego a la coleccion de retorno
                 ret.add(UDto.stringToEmpDTO(aux));
+
+            }
+            return ret;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                // cerramos los recursos
+                if (dis != null) {
+                    dis.close();
+                }
+                if (dos != null) {
+                    dos.close();
+                }
+                if (s != null) {
+                    s.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    
+    // Metodo para autenticar usuarios
+     public static Collection<UserDTO> autenticarUsuario(String user, String pass)
+    {
+        Socket s = null;
+        DataOutputStream dos = null;
+        DataInputStream dis = null;
+        try {
+            //  me conecto
+            s = new Socket(SERVER_IP, SERVER_PORT);
+            dos = new DataOutputStream(s.getOutputStream());
+            dis = new DataInputStream(s.getInputStream());
+
+            //  solicito servicio codigo 4 (autenticar usuarios)
+            dos.writeInt(4);
+
+            // envio el usuario
+            dos.writeUTF(user);
+            // envio Pasword
+            dos.writeUTF(pass);
+
+            //  El server me indica cuantos usuarios va a enviar
+            int n = dis.readInt();
+
+            //Vector<DeptDTO> ret = new Vector<DeptDTO>();
+            ArrayList<UserDTO> ret = new ArrayList<>();
+
+            String aux;
+
+            for (int i = 0; i < n; i++) {
+                //leo el i-esimo String
+                aux = dis.readUTF();
+                // Cada String que recibo lo convierto a DeptDTO
+                //  y lo agrego a la coleccion de retorno
+                ret.add(UDto.stringToUserDTO(aux));
 
             }
             return ret;

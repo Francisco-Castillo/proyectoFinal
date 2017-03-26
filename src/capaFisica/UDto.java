@@ -2,6 +2,7 @@ package capaFisica;
 
 import app.dto.DeptDTO;
 import app.dto.EmpDTO;
+import app.dto.UserDTO;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -43,7 +44,7 @@ public class UDto
     public static EmpDTO stringToEmpDTO(String s)
     {
         EmpDTO dto = new EmpDTO();
-        StringTokenizer st = new StringTokenizer(s,",");
+        StringTokenizer st = new StringTokenizer(s, ",");
 
         dto.setEmpno(Integer.parseInt(st.nextToken()));
         dto.setEname(st.nextToken());
@@ -52,19 +53,31 @@ public class UDto
         String sHiredate = st.nextToken();
 
         dto.setDeptno(Integer.parseInt(st.nextToken().trim()));
-     
-        StringTokenizer stDate = new StringTokenizer(sHiredate,"-");
+
+        StringTokenizer stDate = new StringTokenizer(sHiredate, "-");
         int anio = Integer.parseInt(stDate.nextToken().trim());
         int mes = Integer.parseInt(stDate.nextToken().trim());
         int dia = Integer.parseInt(stDate.nextToken().trim());
 
         GregorianCalendar gc = new GregorianCalendar();
-        gc.set(Calendar.YEAR,anio);
-        gc.set(Calendar.MONTH,mes);
-        gc.set(Calendar.DAY_OF_MONTH,dia);
+        gc.set(Calendar.YEAR, anio);
+        gc.set(Calendar.MONTH, mes);
+        gc.set(Calendar.DAY_OF_MONTH, dia);
 
         dto.setHiredate(new Date(gc.getTimeInMillis()));
 
+        return dto;
+    }
+
+    // Convierto a String
+    public static UserDTO stringToUserDTO(String s)
+    {
+        UserDTO dto = new UserDTO();
+        StringTokenizer st = new StringTokenizer(s, ",");
+        dto.setId(Integer.parseInt(st.nextToken()));
+        dto.setUser(st.nextToken());
+        dto.setPassword(st.nextToken());
+        dto.setRol(st.nextToken());
         return dto;
     }
 }

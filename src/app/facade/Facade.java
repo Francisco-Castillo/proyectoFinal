@@ -7,6 +7,7 @@ package app.facade;
 
 import app.dto.DeptDTO;
 import app.dto.EmpDTO;
+import app.dto.UserDTO;
 import java.util.Collection;
 
 /**
@@ -15,7 +16,12 @@ import java.util.Collection;
  */
 public interface Facade
 {
+
     public Collection<DeptDTO> obtenerDepartamentos();
+
     public Collection<EmpDTO> obtenerEmpleados(int deptno);
+
     public Collection<EmpDTO> obtenerTodosLosEmpleados();
+
+    public Collection<UserDTO> autenticarUsuario(String user, String pass);
 }

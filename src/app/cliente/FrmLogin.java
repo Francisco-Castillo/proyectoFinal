@@ -33,11 +33,11 @@ public class FrmLogin extends javax.swing.JFrame
         jPanel1 = new javax.swing.JPanel();
         etiquetaUsr = new javax.swing.JLabel();
         etiquetaCtr = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        cajaUsuario = new javax.swing.JTextField();
+        cajaPass = new javax.swing.JPasswordField();
         jComboBox1 = new javax.swing.JComboBox<>();
         etiquetaCtr1 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        btnEntrar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -51,16 +51,16 @@ public class FrmLogin extends javax.swing.JFrame
 
         etiquetaCtr.setText("Contraseña: ");
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 204));
+        cajaUsuario.setBackground(new java.awt.Color(255, 255, 204));
 
-        jPasswordField1.setBackground(new java.awt.Color(255, 255, 204));
+        cajaPass.setBackground(new java.awt.Color(255, 255, 204));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Operador", " " }));
 
         etiquetaCtr1.setText("Cargo:");
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app/ico/accept.png"))); // NOI18N
-        jButton3.setText("Entrar");
+        btnEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app/ico/accept.png"))); // NOI18N
+        btnEntrar.setText("Entrar");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app/ico/login-icon-3058.png"))); // NOI18N
 
@@ -82,13 +82,13 @@ public class FrmLogin extends javax.swing.JFrame
                                 .addComponent(etiquetaCtr1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cajaPass, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, 0, 167, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(btnEntrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(etiquetaUsr)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cajaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -98,18 +98,18 @@ public class FrmLogin extends javax.swing.JFrame
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cajaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(etiquetaUsr))
                         .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(etiquetaCtr)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cajaPass, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(etiquetaCtr1))
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel2)))
@@ -200,17 +200,17 @@ public class FrmLogin extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEntrar;
+    private javax.swing.JPasswordField cajaPass;
+    private javax.swing.JTextField cajaUsuario;
     private javax.swing.JLabel etiquetaCtr;
     private javax.swing.JLabel etiquetaCtr1;
     private javax.swing.JLabel etiquetaUsr;
-    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,11 +9,14 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import app.dao.UserDAO;
 import app.dao.DeptDAO;
 import app.dao.EmpDAO;
 import app.dao.EmpDAOMySqlDBImple;
 import app.dto.DeptDTO;
 import app.dto.EmpDTO;
+import app.dto.UserDTO;
+
 import app.factory.UFactory;
 import java.util.Collection;
 
@@ -27,6 +30,7 @@ public class ServerTCP extends Thread
     public static final int OBTENER_DEPARTAMENTOS = 1;
     public static final int OBTENER_EMPLEADOS = 2;
     public static final int OBTENER_TODOS_LOS_EMPLEADOS = 3;
+    public static final int AUTENTICAR_USUARIO = 4;
 
     private Socket socket = null;
     private DataInputStream dis = null;
@@ -69,6 +73,9 @@ public class ServerTCP extends Thread
                     break;
                 case OBTENER_TODOS_LOS_EMPLEADOS:
                     _obtenerTodosLosEmpleados(dis, dos);
+                    break;
+                case AUTENTICAR_USUARIO:
+                    _autenticarUsuarios(dis, dos);
                     break;
             }
 
@@ -142,8 +149,7 @@ public class ServerTCP extends Thread
             throw new RuntimeException(e);
         }
     }
-    
-    
+
     private void _obtenerTodosLosEmpleados(DataInputStream dis, DataOutputStream dos)
     {
         try {
@@ -161,6 +167,42 @@ public class ServerTCP extends Thread
 
             //envio la coleccion de departamentos
             for (EmpDTO dto : coll) {
+                //REDEFINIR EL METODO TO STRING
+                dos.writeUTF(dto.toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+    
+    // Metodo para autenticar Usuarios , Codigo de servicio es 4
+    
+      private void _autenticarUsuarios(DataInputStream dis, DataOutputStream dos)
+    {
+        try {
+            UserDAO dao = (UserDAO) UFactory.getInstancia("user");
+
+            //leo el depto
+            //int deptno = dis.readInt();
+            
+            //leo los strings
+            String us = dis.readUTF();
+            String pas = dis.readUTF();
+            
+            // Obtengo la coleccion de usuarios
+            Collection<UserDTO> coll = dao.autenticarUsuario(us,pas);
+
+            //Obtengo la coleccion de empleados
+            //Collection<EmpDTO> coll = dao.buscarXDepto(deptno);
+
+            //envio el size al cliente
+            int size = coll.size();
+            
+            dos.writeInt(size);
+
+            //envio la coleccion de departamentos
+            for (UserDTO dto : coll) {
                 //REDEFINIR EL METODO TO STRING
                 dos.writeUTF(dto.toString());
             }

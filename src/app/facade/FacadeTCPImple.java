@@ -3,6 +3,7 @@ package app.facade;
 
 import app.dto.DeptDTO;
 import app.dto.EmpDTO;
+import app.dto.UserDTO;
 import java.util.Collection;
 import capaFisica.ServiceLocatorTCP;
 
@@ -31,6 +32,12 @@ public class FacadeTCPImple implements Facade
     public Collection<EmpDTO> obtenerTodosLosEmpleados()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Collection<UserDTO> autenticarUsuario(String user, String pass)
+    {
+        return ServiceLocatorTCP.autenticarUsuario(user, pass);
     }
     
     

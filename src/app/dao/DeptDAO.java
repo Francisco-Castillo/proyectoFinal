@@ -1,7 +1,6 @@
 
 package app.dao;
 
-import app.conexion.UConnection;
 import app.dto.DeptDTO;
 import app.sql.ConnectionPool;
 import java.sql.Connection;
