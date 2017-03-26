@@ -5,6 +5,12 @@
  */
 package app.cliente;
 
+import app.dto.UserDTO;
+import app.facade.Facade;
+import app.factory.UFactory;
+import java.util.Collection;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author fcastillo
@@ -61,6 +67,13 @@ public class FrmLogin extends javax.swing.JFrame
 
         btnEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app/ico/accept.png"))); // NOI18N
         btnEntrar.setText("Entrar");
+        btnEntrar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnEntrarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app/ico/login-icon-3058.png"))); // NOI18N
 
@@ -97,8 +110,8 @@ public class FrmLogin extends javax.swing.JFrame
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(33, 33, 33)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cajaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cajaUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(etiquetaUsr))
                         .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -160,6 +173,19 @@ public class FrmLogin extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnEntrarActionPerformed
+    {//GEN-HEADEREND:event_btnEntrarActionPerformed
+        // Aqui vamos aautenticar el usuario
+        Facade facade = (Facade) UFactory.getInstancia("FACADE");
+        Collection<UserDTO> collUsers = facade.autenticarUsuario(cajaUsuario.getText(), cajaPass.getText());
+        if (collUsers.size() > 0) {
+            JOptionPane.showMessageDialog(null, "Bievenido al sistema...");
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Sus datos son incorrectos...");
+        }
+    }//GEN-LAST:event_btnEntrarActionPerformed
 
     /**
      * @param args the command line arguments
