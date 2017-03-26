@@ -180,9 +180,17 @@ public class FrmLogin extends javax.swing.JFrame
         Facade facade = (Facade) UFactory.getInstancia("FACADE");
         Collection<UserDTO> collUsers = facade.autenticarUsuario(cajaUsuario.getText(), cajaPass.getText());
         if (collUsers.size() > 0) {
-            JOptionPane.showMessageDialog(null, "Bievenido al sistema...");
-            
-        }else{
+            this.dispose();
+            FrmMenu menu = new FrmMenu();
+            for (UserDTO dto : collUsers) {
+                menu.etiquetaUsuario.setText("Usuario : " + dto.getUser());
+                menu.etiquetaRol.setText("Rol: " + dto.getRol());
+
+            }
+
+            menu.setVisible(true);
+
+        } else {
             JOptionPane.showMessageDialog(null, "Sus datos son incorrectos...");
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
