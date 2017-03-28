@@ -8,7 +8,10 @@ package app.cliente;
 import app.dto.UserDTO;
 import app.facade.Facade;
 import app.factory.UFactory;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.Collection;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +27,24 @@ public class FrmLogin extends javax.swing.JFrame
     public FrmLogin()
     {
         initComponents();
+
+        setLocationRelativeTo(this);
+    }
+
+    // se agrego esto y se cambio la propiedad imageIcon del JFrame
+    @Override
+    public Image getIconImage()
+    {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("imagenes/user.png"));
+
+        return retValue;
+    }
+
+    void limpiar()
+    {
+        cajaUsuario.setText("");
+        cajaPass.setText("");
     }
 
     /**
@@ -41,32 +62,38 @@ public class FrmLogin extends javax.swing.JFrame
         etiquetaCtr = new javax.swing.JLabel();
         cajaUsuario = new javax.swing.JTextField();
         cajaPass = new javax.swing.JPasswordField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        etiquetaCtr1 = new javax.swing.JLabel();
         btnEntrar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        btnEntrar1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
+        setUndecorated(true);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         etiquetaUsr.setText("Usuario:");
+        jPanel1.add(etiquetaUsr, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 20, -1, -1));
 
         etiquetaCtr.setText("Contraseña: ");
+        jPanel1.add(etiquetaCtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, -1, -1));
 
         cajaUsuario.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel1.add(cajaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 12, 167, 31));
 
         cajaPass.setBackground(new java.awt.Color(255, 255, 204));
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Operador", " " }));
-
-        etiquetaCtr1.setText("Cargo:");
+        jPanel1.add(cajaPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 61, 167, 31));
 
         btnEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app/ico/accept.png"))); // NOI18N
         btnEntrar.setText("Entrar");
+        btnEntrar.setBorderPainted(false);
+        btnEntrar.setContentAreaFilled(false);
+        btnEntrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEntrar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnEntrar.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -74,60 +101,23 @@ public class FrmLogin extends javax.swing.JFrame
                 btnEntrarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, -1, 68));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app/ico/login-icon-3058.png"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(etiquetaCtr)
-                                .addGap(4, 4, 4))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(etiquetaCtr1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cajaPass, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, 0, 167, Short.MAX_VALUE)
-                            .addComponent(btnEntrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(etiquetaUsr)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cajaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cajaUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(etiquetaUsr))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(etiquetaCtr)
-                            .addComponent(cajaPass, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(etiquetaCtr1))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        btnEntrar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app/ico/cancer.png"))); // NOI18N
+        btnEntrar1.setText("Cancelar");
+        btnEntrar1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnEntrar1.setBorderPainted(false);
+        btnEntrar1.setContentAreaFilled(false);
+        btnEntrar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEntrar1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEntrar1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnEntrar1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEntrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, -1, 68));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -135,16 +125,16 @@ public class FrmLogin extends javax.swing.JFrame
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Autenticacion de Credenciales");
+        jLabel1.setText("Iniciar Sesion");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(67, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addGap(60, 60, 60))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,11 +152,11 @@ public class FrmLogin extends javax.swing.JFrame
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 573, Short.MAX_VALUE)
+            .addGap(0, 307, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
+            .addGap(0, 16, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.PAGE_END);
@@ -178,22 +168,40 @@ public class FrmLogin extends javax.swing.JFrame
     {//GEN-HEADEREND:event_btnEntrarActionPerformed
         // Aqui vamos aautenticar el usuario
         Facade facade = (Facade) UFactory.getInstancia("FACADE");
-        Collection<UserDTO> collUsers = facade.autenticarUsuario(cajaUsuario.getText(), cajaPass.getText());
-        if (collUsers.size() > 0) {
-            this.dispose();
-            FrmMenu menu = new FrmMenu();
-            for (UserDTO dto : collUsers) {
-                menu.etiquetaUsuario.setText("Usuario : " + dto.getUser());
-                menu.etiquetaRol.setText("Rol: " + dto.getRol());
+        if (cajaUsuario.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo usuario no puede estar vacio.");
+            cajaUsuario.requestFocus();
 
-            }
-
-            menu.setVisible(true);
+        } else if (cajaPass.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo password no puede estar vacio.");
+            cajaUsuario.requestFocus();
 
         } else {
-            JOptionPane.showMessageDialog(null, "Sus datos son incorrectos...");
+            Collection<UserDTO> collUsers = facade.autenticarUsuario(cajaUsuario.getText(), cajaPass.getText());
+            if (collUsers.size() > 0) {
+                this.dispose();
+                FrmMenu menu = new FrmMenu();
+                for (UserDTO dto : collUsers) {
+                    menu.etiquetaUsuario.setText("Usuario : " + dto.getUser());
+                    menu.etiquetaRol.setText("Rol: " + dto.getRol());
+
+                }
+
+                menu.setVisible(true);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Sus datos son incorrectos...");
+            }
         }
+
+
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void btnEntrar1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnEntrar1ActionPerformed
+    {//GEN-HEADEREND:event_btnEntrar1ActionPerformed
+        limpiar();  
+        this.dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_btnEntrar1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -235,14 +243,12 @@ public class FrmLogin extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEntrar;
+    private javax.swing.JButton btnEntrar1;
     private javax.swing.JPasswordField cajaPass;
     private javax.swing.JTextField cajaUsuario;
     private javax.swing.JLabel etiquetaCtr;
-    private javax.swing.JLabel etiquetaCtr1;
     private javax.swing.JLabel etiquetaUsr;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
